@@ -1,0 +1,116 @@
+.App {
+	text-align: center;
+	overflow: hidden;
+}
+
+.App-logo {
+	height: 40vmin;
+	pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.App-logo {
+		animation: App-logo-spin infinite 20s linear;
+	}
+}
+
+.App-header {
+	background-color: #282c34;
+	height: 20vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: calc(10px + 2vmin);
+	color: white;
+}
+
+@keyframes App-logo-spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.chat {
+	height: calc(80vh - 20px);
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	background-color: #1c1e24;
+	color: white;
+}
+
+.messages {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	flex-grow: 1;
+	flex-shrink: 1;
+	overflow: auto;
+	margin-bottom: 10px;
+	text-align: left;
+}
+
+.message {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+
+.message time {
+	color: #aaa;
+	font-size: 13px;
+	line-height: 21px;
+	margin-right: 10px;
+}
+
+.message .name {
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.message .name::after {
+	content: ":";
+}
+
+.message .text {
+	white-space: pre-line;
+}
+
+.message .info {
+	font-style: italic;
+}
+
+.inputs {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	flex-grow: 0;
+	flex-shrink: 0;
+}
+
+.inputs input {
+	margin: 0 5px;
+	background: inherit;
+	color: inherit;
+	border: 1px solid white;
+	padding: 4px;
+}
+
+.inputs form {
+	display: contents;
+}
+
+.inputs textarea {
+	margin: 0 5px;
+	background: inherit;
+	color: inherit;
+	border: 1px solid white;
+	padding: 4px;
+	resize: none;
+	flex-grow: 1;
+}

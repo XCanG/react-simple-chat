@@ -1,0 +1,20 @@
+{
+	"name": "react-simple-chat-server",
+	"version": "1.0.0",
+	"description": "WebSocket server for React Chat",
+	"main": "server.js",
+	"dependencies": {
+		"ws": "^7.2.1"
+	},
+	"devDependencies": {},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"start": "node server.js"
+	},
+	"keywords": [
+		"server",
+		"backend"
+	],
+	"author": "XCanG",
+	"license": "MIT"
+}
