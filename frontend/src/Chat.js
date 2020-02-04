@@ -1,15 +1,13 @@
 import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import Input from "./Input";
 import Message from "./Message";
+import * as actions from "./actions/actions";
 
 const URL = "ws://127.0.0.1:8080";
 
 class Chat extends Component {
-	state = {
-		name: "Anonymous",
-		messages: [],
-	};
-
 	ws = new WebSocket(URL);
 
 	componentDidMount() {
@@ -20,7 +18,7 @@ class Chat extends Component {
 
 		this.ws.onmessage = (e) => {
 			const message = JSON.parse(e.data);
-			this.addMessage(message);
+			this.props.actions.sendMessage(message);
 		};
 
 		this.ws.onclose = () => {
@@ -36,25 +34,27 @@ class Chat extends Component {
 		window.removeEventListener("beforeunload", this.handleWindowBeforeUnload);
 	}
 
-	addMessage = (message) =>
-		this.setState(state => ({messages: [...state.messages, message]}));
-
 	submitMessage = (messageString) => {
-		const message = {type: "message", time: new Date().toLocaleTimeString("ru-RU"), name: this.state.name, message: messageString};
+		if (messageString.length === 0) return;
+
+		const message = {type: "message", time: new Date().toLocaleTimeString("ru-RU"), name: this.props.name, message: messageString};
 		this.ws.send(JSON.stringify(message));
-		this.addMessage(message);
+		this.props.actions.sendMessage(message);
 	};
 
 	handleWindowBeforeUnload = () => {
-		const message = {type: "leave", time: new Date().toLocaleTimeString("ru-RU"), name: this.state.name};
+		const message = {type: "leave", time: new Date().toLocaleTimeString("ru-RU"), name: this.props.name};
 		this.ws.send(JSON.stringify(message));
 	}
 
 	render() {
+		const { name, messages } = this.props;
+		const { changeName } = this.props.actions;
+
 		return (
 			<div className="chat">
 				<div className="messages">
-					{this.state.messages.map((message, index) =>
+					{messages.map((message, index) =>
 						<Message
 							key={index}
 							type={message.type}
@@ -70,8 +70,8 @@ class Chat extends Component {
 						<input
 							type="text"
 							placeholder={"Введите ваше имя..."}
-							value={this.state.name}
-							onChange={e => this.setState({name: e.target.value})}
+							value={name}
+							onChange={e => changeName(e.target.value)}
 						/>
 					</label>
 					<Input
@@ -84,4 +84,17 @@ class Chat extends Component {
 	}
 }
 
-export default Chat;
+const mapStateToProps = (state) => {
+	return {
+		name: state.name,
+		messages: state.messages
+	}
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		actions: bindActionCreators(actions, dispatch)
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

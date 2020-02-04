@@ -14,9 +14,9 @@ class Input extends Component {
 			<form
 				action="."
 				onSubmit={e => {
-					e.preventDefault()
-					this.props.onSubmitMessage(this.state.message)
-					this.setState({message: ""})
+					e.preventDefault();
+					this.props.onSubmitMessage(this.state.message);
+					this.setState({message: ""});
 				}}
 			>
 				<textarea
@@ -31,4 +31,4 @@ class Input extends Component {
 	}
 }
 
-export default Input
+export default Input;
