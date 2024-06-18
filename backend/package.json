@@ -4,7 +4,7 @@
 	"description": "WebSocket server for React Chat",
 	"main": "server.js",
 	"dependencies": {
-		"ws": "^7.5.9"
+		"ws": "^7.5.10"
 	},
 	"devDependencies": {},
 	"scripts": {
